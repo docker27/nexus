@@ -17,7 +17,7 @@ function _install() {
 	fi
 	cp /opt/install/nexus.properties /usr/local/nexus/nexus-3.2.0-01/etc/nexus-default.properties
 	chown -R dev:dev /usr/local/nexus
-	su - dev -c "${nexus_home}/bin/nexus start"
+	su - dev -c "${nexus_home}/bin/nexus start &"
 	echo "nexus install success !!!"
 }
 
@@ -29,7 +29,7 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/nexus
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/nexus
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/nexus
-	echo 'su - dev -c "${nexus_home}/bin/nexus run &"' >> /etc/rc.d/init.d/nexus
+	echo 'su - dev -c "/usr/local/nexus/nexus-3.2.0-01/bin/nexus start &"' >> /etc/rc.d/init.d/nexus
 	chkconfig --add nexus
 	echo "chkconfig add nexus success"
 }
